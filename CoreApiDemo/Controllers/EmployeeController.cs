@@ -72,6 +72,13 @@ namespace CoreApiDemo.Controllers
             return await _employeeManager.GetSingleEmployeeDetail(id);
         }
 
+        [HttpGet("{id}/projects")]
+        //[Route("{id}/projects")]
+        public async Task<SingleEmployeeProjects> Projects(int id)
+        {
+            return await _employeeManager.GetEmployeeProjects(id);
+        }
+
         // POST: api/Employee
         //[HttpPost]
         //public void Post([FromBody] string value)

@@ -11,5 +11,7 @@ namespace CoreApiDemo.BAL.Shared
         public Task<IEnumerable<EmployeeListModel>> GetEmployeeList();
 
         public Task<SingleEmployeeModel> GetSingleEmployeeDetail(int id);
+
+        public Task<SingleEmployeeProjects> GetEmployeeProjects(int id);
     }
 }

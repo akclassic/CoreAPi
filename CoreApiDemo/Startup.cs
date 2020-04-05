@@ -35,6 +35,7 @@ namespace CoreApiDemo
             services.AddTransient<IEmployeeManager, EmployeeManager>();
             services.AddTransient<IDepartmentManager, DepartmentManager>();
             services.AddTransient<ILaptopManager, LaptopManager>();
+            services.AddTransient<IProjectManager, ProjectManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

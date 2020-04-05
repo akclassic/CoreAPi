@@ -9,6 +9,7 @@ namespace CoreApiDemo.BAL.Implementation
 {
     public class EmployeeManager : IEmployeeManager
     {
+        
         public async Task<IEnumerable<EmployeeListModel>> GetEmployeeList()
         {
             using (var context = new CompanyDbContext())
@@ -28,6 +29,27 @@ namespace CoreApiDemo.BAL.Implementation
                                 })
                                 .ToListAsync();
                 return employees;
+            }
+        }
+
+        public async Task<SingleEmployeeProjects> GetEmployeeProjects(int id)
+        {
+            using(var context = new CompanyDbContext())
+            {
+                var employeeProjects = await context.Employee
+                                        .Where(e => e.Id == id)
+                                        .Include(e => e.EmployeeProject)
+                                        .Select(e => new SingleEmployeeProjects()
+                                        {
+                                            Id = e.Id,
+                                            Name = $"{e.FirstName} {e.LastName}",
+                                            EmployeeProjectList = e.EmployeeProject.Where(ep => ep.EmployeeId == e.Id).Select(ep => new EmployeeProjectList() {
+                                                ProjectId = ep.ProjectId ?? 0,
+                                                ProjectName = ep.Project.ProjectName
+                                            }).ToList()
+                                        }).ToListAsync();
+
+                return employeeProjects[0];
             }
         }
 
